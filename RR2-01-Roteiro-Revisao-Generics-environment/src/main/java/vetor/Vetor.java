@@ -9,7 +9,7 @@ import java.util.Comparator;
  * @author Adalberto
  *
  */
-public class Vetor<T> {
+public class Vetor<T extends Comparable<T>> {
 
 	// O array interno onde os objetos manipulados são guardados
 	private T[] arrayInterno;
@@ -26,15 +26,16 @@ public class Vetor<T> {
 
 	public Vetor(int tamanho) {
 		super();
+		this.arrayInterno = (T[]) new Comparable[tamanho];
 		this.tamanho = tamanho;
 		this.indice = 0;
 	}
 
-	public void setComparadorMaximo(Comparator comparadorMaximo) {
+	public void setComparadorMaximo(Comparator<T> comparadorMaximo) {
 		this.comparadorMaximo = comparadorMaximo;
 	}
 
-	public void setComparadorMinimo(Comparator comparadorMinimo) {
+	public void setComparadorMinimo(Comparator<T> comparadorMinimo) {
 		this.comparadorMinimo = comparadorMinimo;
 	}
 
@@ -59,6 +60,7 @@ public class Vetor<T> {
 				this.arrayInterno[this.indice - 1] = null;
 				this.indice--;
 			}
+			i++;
 		}
 		return retorno;
 		
@@ -74,6 +76,7 @@ public class Vetor<T> {
 				achou = true;
 				retorno = o;
 			}
+			i++;
 		}
 		return retorno;
 	}
@@ -97,5 +100,35 @@ public class Vetor<T> {
 		
 		return retorno;
 	}
+	
+	public T maximo() {
+		T maximo = this.arrayInterno[0];
+		int i = 0;
+		
+		while(i < this.indice) {
+			if (this.comparadorMaximo.compare(maximo, this.arrayInterno[i]) < 0) {
+				maximo = this.arrayInterno[i];
+			}
+			i++;
+		}
+		
+		return maximo;
+	}
+	
+	public T minimo() {
+		T minimo = this.arrayInterno[0];
+	    int i = 0;
+		
+		while(i < this.indice) {
+			if (this.comparadorMinimo.compare(minimo, this.arrayInterno[i]) < 0) {
+				minimo = this.arrayInterno[i];
+			}
+			i++;
+		}
+		
+		return minimo;
+	}
+	
+	
 
 }
