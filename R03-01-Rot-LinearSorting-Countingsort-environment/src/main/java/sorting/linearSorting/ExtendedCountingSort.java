@@ -25,7 +25,7 @@ public class ExtendedCountingSort extends AbstractSorting<Integer> {
 			
 			int offset = min;
 			
-			for(int i = 0; i < array.length;i++) {
+			for(int i = leftIndex; i < array.length;i++) {
 				aux[array[i] - offset]++;
 			}
 			
@@ -33,12 +33,14 @@ public class ExtendedCountingSort extends AbstractSorting<Integer> {
 				aux[j] += aux[j - 1];
 			}
 			
-			for(int k = array.length - 1; k >= 0; k--) {
+			for(int k = array.length - 1; k >= leftIndex; k--) {
 				aux[array[k] - offset]--;
 				result[aux[array[k] - offset]] = array[k]; 
 			}
 			
-			System.arraycopy(result, leftIndex, array, leftIndex, result.length);
+			for(int i = leftIndex; i <= rightIndex; i++) {
+				array[i] = result[i];
+			}
 			
 		}
 		
