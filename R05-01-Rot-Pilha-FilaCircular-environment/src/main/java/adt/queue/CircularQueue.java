@@ -49,7 +49,7 @@ public class CircularQueue<T> implements Queue<T> {
 	public T head() {
 		T result = null;
 		
-		if(elements > 0) {
+		if(!this.isEmpty()) {
 			result = array[head];
 		}
 		
