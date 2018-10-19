@@ -18,7 +18,7 @@ public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends A
 			int i = 0;
 			while (i < this.table.length) {
 				int aux = ((HashFunctionOpenAddress<T>) this.hashFunction).hash(element, i);
-				if (this.table[aux] == null || this.table[aux].equals(new DELETED())) {
+				if (this.table[aux] == null || (new DELETED()).equals(this.table[aux])) {
 					this.table[aux] = element;
 					this.elements++;
 					return;
@@ -27,7 +27,6 @@ public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends A
 					i++;
 				}
 			}
-
 			throw new HashtableOverflowException();
 			
 		}
